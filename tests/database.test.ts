@@ -333,9 +333,7 @@ test('history migration backfills legacy dates, preserves new dates and supports
   assert.equal((await client.query('SELECT created_at=scheduled_at AS matches FROM sync_jobs')).rows[0].matches,true);
   assert.equal((await client.query('SELECT created_at=expires_at AS matches FROM photo_import_sessions')).rows[0].matches,true);
   await client.query('COMMIT');await client.query('BEGIN');await client.query(`SET LOCAL search_path TO "${schema}", public`);
-  // Keep the requested source selective; at 10% PostgreSQL can reasonably
-  // prefer a sequential scan, making an index-plan assertion unstable.
-  await client.query("INSERT INTO sync_jobs(account_id) SELECT CASE WHEN n%100=0 THEN '11111111-1111-4111-8111-111111111111'::uuid ELSE gen_random_uuid() END FROM generate_series(1,10000) AS g(n)");
+  await client.query("INSERT INTO sync_jobs(account_id) SELECT CASE WHEN n%10=0 THEN '11111111-1111-4111-8111-111111111111'::uuid ELSE gen_random_uuid() END FROM generate_series(1,10000) AS g(n)");
   await client.query('INSERT INTO photo_import_sessions DEFAULT VALUES');
   assert.equal((await client.query('SELECT bool_and(created_at=now()) AS matches FROM sync_jobs WHERE created_at<>scheduled_at')).rows[0].matches,true);
   await client.query('ANALYZE sync_jobs');

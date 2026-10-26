@@ -1,0 +1,13 @@
+{
+  "name": "@personal-context/models",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@personal-context/config": "*",
+    "@personal-context/contracts": "*"
+  }
+}

@@ -1,0 +1,20 @@
+name: personal-context
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: personal_context
+      POSTGRES_PASSWORD: local-development-only
+      POSTGRES_DB: personal_context
+    ports:
+      - "127.0.0.1:55439:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/001-vector.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U personal_context -d personal_context"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+volumes:
+  postgres_data:

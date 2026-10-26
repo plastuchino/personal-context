@@ -1,0 +1,46 @@
+{
+  "name": "personal-data-aggregate",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace @personal-context/web",
+    "dev:api": "npm run dev --workspace @personal-context/api",
+    "dev:worker": "npm run dev --workspace @personal-context/worker",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run build --workspace @personal-context/web",
+    "test": "tsx --test tests/*.test.ts",
+    "db:up": "docker compose up -d --wait postgres",
+    "db:stop": "docker compose stop postgres",
+    "db:check": "tsx --env-file=.env packages/database/src/check.ts",
+    "db:migrate": "tsx --env-file=.env packages/database/src/migrate.ts",
+    "test:db": "tsx --env-file=.env --test tests/database.test.ts",
+    "test:db:isolated": "tsx --env-file=.env packages/database/src/test-isolated.ts",
+    "owner:setup": "tsx --env-file=.env packages/database/src/setup-owner.ts",
+    "worker:slack": "tsx --env-file=.env apps/worker/src/slack.ts",
+    "worker:slack-process": "tsx --env-file=.env apps/worker/src/slack-process.ts",
+    "bank:check": "tsx --env-file=.env packages/connectors/src/verify-capital-one.ts",
+    "bank:sandbox": "tsx --env-file=.env packages/connectors/src/sandbox-check.ts",
+    "test:ui": "node tests/dashboard.browser.mjs",
+    "models:setup": "tsx --env-file=.env packages/models/src/setup-local.ts",
+    "slack:https:setup": "tsx scripts/setup-slack-https.ts",
+    "dev:slack-callback": "tsx --env-file=.env apps/api/src/slack-callback.ts"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "@types/luxon": "3.7.6",
+    "@types/node": "26.6.5",
+    "@types/pg": "8.23.1",
+    "playwright": "1.64.1",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  }
+}

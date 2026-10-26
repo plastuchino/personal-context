@@ -1,0 +1,1 @@
+{"name":"@personal-context/connectors","version":"0.0.0","private":true,"type":"module","exports":"./src/index.ts","dependencies":{"@personal-context/config":"*","@personal-context/contracts":"*","@personal-context/database":"*","@slack/socket-mode":"3.1.0","lossless-json":"4.3.3","luxon":"3.7.2"}}

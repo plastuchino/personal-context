@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+coverage/
+.DS_Store
+.dual-graph/
+.dual-graph-context/
+
+# Local TLS keys and development artifacts
+.local/

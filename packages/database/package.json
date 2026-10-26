@@ -1,0 +1,15 @@
+{
+  "name": "@personal-context/database",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@personal-context/config": "*",
+    "pg": "8.23.1",
+    "@personal-context/contracts": "*",
+    "@personal-context/security": "*"
+  }
+}
